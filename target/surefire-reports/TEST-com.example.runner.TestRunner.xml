@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.example.runner.TestRunner" time="1.853" tests="1" errors="0" skipped="0" failures="1">
+  <properties>
+    <property name="java.specification.version" value="17"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/home/sreeni/Desktop/Programs/java/pw_api/target/test-classes:/home/sreeni/Desktop/Programs/java/pw_api/target/classes:/home/sreeni/.m2/repository/com/microsoft/playwright/playwright/1.49.0/playwright-1.49.0.jar:/home/sreeni/.m2/repository/com/google/code/gson/gson/2.11.0/gson-2.11.0.jar:/home/sreeni/.m2/repository/com/google/errorprone/error_prone_annotations/2.27.0/error_prone_annotations-2.27.0.jar:/home/sreeni/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/home/sreeni/.m2/repository/com/microsoft/playwright/driver/1.49.0/driver-1.49.0.jar:/home/sreeni/.m2/repository/com/microsoft/playwright/driver-bundle/1.49.0/driver-bundle-1.49.0.jar:/home/sreeni/.m2/repository/io/cucumber/cucumber-java/7.20.1/cucumber-java-7.20.1.jar:/home/sreeni/.m2/repository/io/cucumber/cucumber-core/7.20.1/cucumber-core-7.20.1.jar:/home/sreeni/.m2/repository/io/cucumber/cucumber-gherkin/7.20.1/cucumber-gherkin-7.20.1.jar:/home/sreeni/.m2/repository/io/cucumber/cucumber-gherkin-messages/7.20.1/cucumber-gherkin-messages-7.20.1.jar:/home/sreeni/.m2/repository/io/cucumber/gherkin/28.0.0/gherkin-28.0.0.jar:/home/sreeni/.m2/repository/io/cucumber/messages/24.1.0/messages-24.1.0.jar:/home/sreeni/.m2/repository/io/cucumber/testng-xml-formatter/0.2.0/testng-xml-formatter-0.2.0.jar:/home/sreeni/.m2/repository/io/cucumber/query/12.2.0/query-12.2.0.jar:/home/sreeni/.m2/repository/io/cucumber/tag-expressions/6.1.0/tag-expressions-6.1.0.jar:/home/sreeni/.m2/repository/io/cucumber/cucumber-expressions/17.1.0/cucumber-expressions-17.1.0.jar:/home/sreeni/.m2/repository/io/cucumber/datatable/7.20.1/datatable-7.20.1.jar:/home/sreeni/.m2/repository/io/cucumber/cucumber-plugin/7.20.1/cucumber-plugin-7.20.1.jar:/home/sreeni/.m2/repository/io/cucumber/docstring/7.20.1/docstring-7.20.1.jar:/home/sreeni/.m2/repository/io/cucumber/html-formatter/21.7.0/html-formatter-21.7.0.jar:/home/sreeni/.m2/repository/io/cucumber/junit-xml-formatter/0.5.0/junit-xml-formatter-0.5.0.jar:/home/sreeni/.m2/repository/io/cucumber/ci-environment/10.0.1/ci-environment-10.0.1.jar:/home/sreeni/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/sreeni/.m2/repository/io/cucumber/cucumber-junit/7.20.1/cucumber-junit-7.20.1.jar:/home/sreeni/.m2/repository/io/cucumber/cucumber-picocontainer/7.20.1/cucumber-picocontainer-7.20.1.jar:/home/sreeni/.m2/repository/org/picocontainer/picocontainer/2.15/picocontainer-2.15.jar:/home/sreeni/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/home/sreeni/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/sreeni/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.18.2/jackson-databind-2.18.2.jar:/home/sreeni/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.18.2/jackson-annotations-2.18.2.jar:/home/sreeni/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.18.2/jackson-core-2.18.2.jar:/home/sreeni/.m2/repository/org/assertj/assertj-core/3.27.3/assertj-core-3.27.3.jar:/home/sreeni/.m2/repository/net/bytebuddy/byte-buddy/1.15.11/byte-buddy-1.15.11.jar:"/>
+    <property name="java.vm.vendor" value="Ubuntu"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://ubuntu.com/"/>
+    <property name="os.name" value="Linux"/>
+    <property name="java.vm.specification.version" value="17"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-17-openjdk-amd64/lib"/>
+    <property name="sun.java.command" value="/home/sreeni/Desktop/Programs/java/pw_api/target/surefire/surefirebooter-20260629231955029_3.jar /home/sreeni/Desktop/Programs/java/pw_api/target/surefire 2026-06-29T23-19-54_946-jvmRun1 surefire-20260629231955029_1tmp surefire_0-20260629231955029_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/home/sreeni/Desktop/Programs/java/pw_api/target/test-classes:/home/sreeni/Desktop/Programs/java/pw_api/target/classes:/home/sreeni/.m2/repository/com/microsoft/playwright/playwright/1.49.0/playwright-1.49.0.jar:/home/sreeni/.m2/repository/com/google/code/gson/gson/2.11.0/gson-2.11.0.jar:/home/sreeni/.m2/repository/com/google/errorprone/error_prone_annotations/2.27.0/error_prone_annotations-2.27.0.jar:/home/sreeni/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/home/sreeni/.m2/repository/com/microsoft/playwright/driver/1.49.0/driver-1.49.0.jar:/home/sreeni/.m2/repository/com/microsoft/playwright/driver-bundle/1.49.0/driver-bundle-1.49.0.jar:/home/sreeni/.m2/repository/io/cucumber/cucumber-java/7.20.1/cucumber-java-7.20.1.jar:/home/sreeni/.m2/repository/io/cucumber/cucumber-core/7.20.1/cucumber-core-7.20.1.jar:/home/sreeni/.m2/repository/io/cucumber/cucumber-gherkin/7.20.1/cucumber-gherkin-7.20.1.jar:/home/sreeni/.m2/repository/io/cucumber/cucumber-gherkin-messages/7.20.1/cucumber-gherkin-messages-7.20.1.jar:/home/sreeni/.m2/repository/io/cucumber/gherkin/28.0.0/gherkin-28.0.0.jar:/home/sreeni/.m2/repository/io/cucumber/messages/24.1.0/messages-24.1.0.jar:/home/sreeni/.m2/repository/io/cucumber/testng-xml-formatter/0.2.0/testng-xml-formatter-0.2.0.jar:/home/sreeni/.m2/repository/io/cucumber/query/12.2.0/query-12.2.0.jar:/home/sreeni/.m2/repository/io/cucumber/tag-expressions/6.1.0/tag-expressions-6.1.0.jar:/home/sreeni/.m2/repository/io/cucumber/cucumber-expressions/17.1.0/cucumber-expressions-17.1.0.jar:/home/sreeni/.m2/repository/io/cucumber/datatable/7.20.1/datatable-7.20.1.jar:/home/sreeni/.m2/repository/io/cucumber/cucumber-plugin/7.20.1/cucumber-plugin-7.20.1.jar:/home/sreeni/.m2/repository/io/cucumber/docstring/7.20.1/docstring-7.20.1.jar:/home/sreeni/.m2/repository/io/cucumber/html-formatter/21.7.0/html-formatter-21.7.0.jar:/home/sreeni/.m2/repository/io/cucumber/junit-xml-formatter/0.5.0/junit-xml-formatter-0.5.0.jar:/home/sreeni/.m2/repository/io/cucumber/ci-environment/10.0.1/ci-environment-10.0.1.jar:/home/sreeni/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/sreeni/.m2/repository/io/cucumber/cucumber-junit/7.20.1/cucumber-junit-7.20.1.jar:/home/sreeni/.m2/repository/io/cucumber/cucumber-picocontainer/7.20.1/cucumber-picocontainer-7.20.1.jar:/home/sreeni/.m2/repository/org/picocontainer/picocontainer/2.15/picocontainer-2.15.jar:/home/sreeni/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/home/sreeni/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/sreeni/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.18.2/jackson-databind-2.18.2.jar:/home/sreeni/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.18.2/jackson-annotations-2.18.2.jar:/home/sreeni/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.18.2/jackson-core-2.18.2.jar:/home/sreeni/.m2/repository/org/assertj/assertj-core/3.27.3/assertj-core-3.27.3.jar:/home/sreeni/.m2/repository/net/bytebuddy/byte-buddy/1.15.11/byte-buddy-1.15.11.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/home/sreeni"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-04-21"/>
+    <property name="java.home" value="/usr/lib/jvm/java-17-openjdk-amd64"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/home/sreeni/Desktop/Programs/java/pw_api"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="/home/sreeni/Desktop/Programs/java/pw_api/target/surefire/surefirebooter-20260629231955029_3.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="17.0.19+10-1-24.04.2-Ubuntu"/>
+    <property name="user.name" value="sreeni"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="6.17.0-35-generic"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="localRepository" value="/home/sreeni/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://bugs.launchpad.net/ubuntu/+source/openjdk-17"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="java.version" value="17.0.19"/>
+    <property name="user.dir" value="/home/sreeni/Desktop/Programs/java/pw_api"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib"/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="java.vendor" value="Ubuntu"/>
+    <property name="java.vm.version" value="17.0.19+10-1-24.04.2-Ubuntu"/>
+    <property name="java.specification.maintenance.version" value="1"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="61.0"/>
+  </properties>
+  <testcase name="Get a single product by ID" classname="GET Product - DummyJSON API" time="1.433">
+    <failure message="Rating enum mismatch(es):&#10;  - reviews[1].rating = 4 (not in enum: [2, 3, 6])&#10;  - reviews[2].rating = 5 (not in enum: [2, 3, 6])" type="java.lang.AssertionError"><![CDATA[java.lang.AssertionError: 
+Rating enum mismatch(es):
+  - reviews[1].rating = 4 (not in enum: [2, 3, 6])
+  - reviews[2].rating = 5 (not in enum: [2, 3, 6])
+	at com.example.steps.ApiSteps.eachReviewRatingShouldBeWithinValidEnum(ApiSteps.java:145)
+	at ✽.each review rating should be within the valid enum from "ratings"(file:///home/sreeni/Desktop/Programs/java/pw_api/src/test/resources/features/get-product.feature:19)
+]]></failure>
+    <system-out><![CDATA[
+Scenario: Get a single product by ID                                       # src/test/resources/features/get-product.feature:9
+  Given the base URL is "https://dummyjson.com"                            # com.example.steps.ApiSteps.theBaseUrlIs(java.lang.String)
+  When I send a GET request to "/products/1"                               # com.example.steps.ApiSteps.iSendAGetRequestTo(java.lang.String)
+  Then the response status should be 200                                   # com.example.steps.ApiSteps.theResponseStatusShouldBe(int)
+  And the response should be OK                                            # com.example.steps.ApiSteps.theResponseShouldBeOk()
+  And the response header "content-type" should contain "application/json" # com.example.steps.ApiSteps.theResponseHeaderShouldContain(java.lang.String,java.lang.String)
+  And the response should contain field "id"                               # com.example.steps.ApiSteps.theResponseShouldContainField(java.lang.String)
+  And the response field "id" should equal 1                               # com.example.steps.ApiSteps.theResponseFieldShouldEqual(java.lang.String,int)
+  And the response should contain field "title"                            # com.example.steps.ApiSteps.theResponseShouldContainField(java.lang.String)
+  And each review should have non-null field "reviewerEmail"               # com.example.steps.ApiSteps.eachReviewShouldHaveNonNullField(java.lang.String)
+  And each review should have non-null field "reviewerName"                # com.example.steps.ApiSteps.eachReviewShouldHaveNonNullField(java.lang.String)
+  And each review rating should be within the valid enum from "ratings"    # com.example.steps.ApiSteps.eachReviewRatingShouldBeWithinValidEnum(java.lang.String)
+      java.lang.AssertionError: Rating enum mismatch(es):
+  - reviews[1].rating = 4 (not in enum: [2, 3, 6])
+  - reviews[2].rating = 5 (not in enum: [2, 3, 6])
+	at com.example.steps.ApiSteps.eachReviewRatingShouldBeWithinValidEnum(ApiSteps.java:145)
+	at ✽.each review rating should be within the valid enum from "ratings"(file:///home/sreeni/Desktop/Programs/java/pw_api/src/test/resources/features/get-product.feature:19)
+
+
+    Embedding Request [text/plain 173 bytes]
+
+
+    Embedding Response [text/plain 3221 bytes]
+
+]]></system-out>
+  </testcase>
+</testsuite>

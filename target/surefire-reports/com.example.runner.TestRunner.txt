@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: com.example.runner.TestRunner
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 1.853 s <<< FAILURE! -- in com.example.runner.TestRunner
+GET Product - DummyJSON API.Get a single product by ID -- Time elapsed: 1.433 s <<< FAILURE!
+java.lang.AssertionError: 
+Rating enum mismatch(es):
+  - reviews[1].rating = 4 (not in enum: [2, 3, 6])
+  - reviews[2].rating = 5 (not in enum: [2, 3, 6])
+	at com.example.steps.ApiSteps.eachReviewRatingShouldBeWithinValidEnum(ApiSteps.java:145)
+	at ✽.each review rating should be within the valid enum from "ratings"(file:///home/sreeni/Desktop/Programs/java/pw_api/src/test/resources/features/get-product.feature:19)
+
