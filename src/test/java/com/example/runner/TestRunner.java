@@ -13,7 +13,8 @@ import org.junit.runner.RunWith;
         "html:target/cucumber-reports/index.html",
         "json:target/cucumber-reports/cucumber.json"
     },
-    monochrome = true
+    monochrome = true,
+    tags = "@system and @regression"
 )
 public class TestRunner {
 }

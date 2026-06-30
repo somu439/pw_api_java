@@ -1,6 +1,7 @@
 package com.example.steps;
 
 import com.example.support.ApiContext;
+import com.example.support.Config;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.en.Given;
@@ -23,6 +24,11 @@ public class ApiSteps {
 
     public ApiSteps(ApiContext ctx) {
         this.ctx = ctx;
+    }
+
+    @Given("the base URL is configured")
+    public void theBaseUrlIsConfigured() {
+        ctx.baseUrl = Config.BASE_URL;
     }
 
     @Given("the base URL is {string}")

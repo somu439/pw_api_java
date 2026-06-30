@@ -1,10 +1,11 @@
+@system @regression
 Feature: GET Product - DummyJSON API
   As a QA engineer
   I want to verify the GET product endpoint of dummyjson.com
   So that I can ensure product data is returned correctly
 
   Background:
-    Given the base URL is "https://dummyjson.com"
+    Given the base URL is configured
 
   Scenario: Get a single product by ID
     When I send a GET request to "/products/1"
