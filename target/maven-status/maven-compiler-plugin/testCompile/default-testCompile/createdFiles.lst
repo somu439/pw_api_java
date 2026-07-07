@@ -1,6 +1,6 @@
-com/example/steps/ApiSteps.class
-com/example/hooks/Hooks.class
-com/example/steps/ApiSteps$1.class
-com/example/runner/TestRunner.class
-com/example/support/ApiContext.class
-com/example/support/Config.class
+one/two/three/hooks/Hooks.class
+one/two/three/support/Config.class
+one/two/three/steps/ApiSteps.class
+one/two/three/steps/ApiSteps$1.class
+one/two/three/support/ApiContext.class
+one/two/three/runner/TestRunner.class

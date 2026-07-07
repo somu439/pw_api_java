@@ -5,7 +5,7 @@ Feature: GET Product - DummyJSON API
   So that I can ensure product data is returned correctly
 
   Background:
-    Given the base URL is configured
+    Given the base URL is "https://dummyjson.com"
 
   Scenario: Get a single product by ID
     When I send a GET request to "/products/1"
@@ -15,6 +15,12 @@ Feature: GET Product - DummyJSON API
     And the response should contain field "id"
     And the response field "id" should equal 1
     And the response should contain field "title"
-    And each review should have non-null field "reviewerEmail"
-    And each review should have non-null field "reviewerName"
-    And each review rating should be within the valid enum from "ratings"
+    And each of the following fields should be non-null:
+      | reviews[*].reviewerEmail |
+      | reviews[*].reviewerName  |
+      | title                    |
+    And each value at "reviews[*].rating" should be within the valid list from CSV "ratings"
+    And each value at "reviews[*].comment" should be within the valid list from CSV "comment"
+    And the value of the element "body.dimensions.depth" is "22.99"
+    And the value of the element "body.tags[1]" is "mascara"
+    And the value of the element "body.sku" is "BEA-ESS-ESS-002"  
