@@ -58,6 +58,22 @@ public class JsonPathUtils {
             .isEqualTo(expected);
     }
 
+    public static void assertContains(Object json, String rawPath, String expected) {
+        String path = normalize(rawPath);
+        Object result = read(json, rawPath);
+
+        if (result instanceof List<?> values) {
+            boolean found = values.stream().anyMatch(v -> String.valueOf(v).equals(expected));
+            assertThat(found)
+                .as("JsonPath '%s' should contain '%s' (actual: %s)", path, expected, values)
+                .isTrue();
+        } else {
+            assertThat(String.valueOf(result))
+                .as("Value at '%s'", rawPath)
+                .contains(expected);
+        }
+    }
+
     public static List<String> findMismatches(Object json, String rawPath, List<String> validValues) {
         String path = normalize(rawPath);
         Object result = read(json, rawPath);

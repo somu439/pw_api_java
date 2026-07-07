@@ -101,6 +101,11 @@ public class ApiSteps {
         JsonPathUtils.assertEquals(ctx.responseBody, elementPath, expected);
     }
 
+    @Then("the value of the element {string} contains {string}")
+    public void theValueOfTheElementContains(String elementPath, String expected) {
+        JsonPathUtils.assertContains(ctx.responseBody, elementPath, expected);
+    }
+
     @Then("each value at {string} should be within the valid list from CSV {string}")
     public void eachValueAtShouldBeWithinValidListFromCsv(String jsonPath, String csvFile) throws Exception {
         List<String> validValues = CsvUtils.readValues(csvFile);

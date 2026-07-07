@@ -23,4 +23,5 @@ Feature: GET Product - DummyJSON API
     And each value at "reviews[*].comment" should be within the valid list from CSV "comment"
     And the value of the element "body.dimensions.depth" is "22.99"
     And the value of the element "body.tags[1]" is "mascara"
-    And the value of the element "body.sku" is "BEA-ESS-ESS-002"  
+    And the value of the element "body.tags[*]" contains "beauty"
+    And the value of the element "body.sku" is "BEA-ESS-ESS-002"
