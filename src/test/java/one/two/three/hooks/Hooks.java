@@ -1,9 +1,8 @@
-package com.example.hooks;
+package one.two.three.hooks;
 
-import com.example.support.ApiContext;
-import com.example.support.Config;
+import one.two.three.support.ApiContext;
+import one.two.three.support.Config;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.microsoft.playwright.APIRequest;
 import com.microsoft.playwright.Playwright;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -22,17 +21,10 @@ public class Hooks {
     }
 
     @Before
-    public void setUp() {
-        Map<String, String> headers = new LinkedHashMap<>(Config.HEADERS);
-        if (ctx.jwtToken != null && !ctx.jwtToken.isEmpty()) {
-            headers.put("Authorization", "Bearer " + ctx.jwtToken);
-        }
+    public void setUp(Scenario scenario) {
+        ctx.scenario = scenario;
         ctx.playwright = Playwright.create();
-        ctx.apiContext = ctx.playwright.request().newContext(
-            new APIRequest.NewContextOptions()
-                .setBaseURL(ctx.baseUrl)
-                .setExtraHTTPHeaders(headers)
-        );
+        ctx.apiContext = null;
         ctx.responseBody = new LinkedHashMap<>();
         ctx.requestUrl = "";
         ctx.requestMethod = "";
@@ -61,7 +53,9 @@ public class Hooks {
             scenario.attach(responseJson.getBytes(), "text/plain", "Response");
         }
 
-        ctx.apiContext.dispose();
+        if (ctx.apiContext != null) {
+            ctx.apiContext.dispose();
+        }
         ctx.playwright.close();
     }
 }

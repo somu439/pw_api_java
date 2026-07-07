@@ -1,9 +1,0 @@
-REQUEST:
-{
-  "method" : "GET",
-  "url" : "https://dummyjson.com/products/1",
-  "headers" : {
-    "Accept" : "application/json",
-    "Content-Type" : "application/json"
-  }
-}

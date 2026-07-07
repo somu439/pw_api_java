@@ -1,4 +1,4 @@
-package com.example.support;
+package one.two.three.support;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -9,7 +9,7 @@ public class Config {
 
     private static final Properties props = loadProperties();
 
-    public static final String BASE_URL = resolve("BASE_URL", "https://dummyjson.com");
+    public static final String BASE_URL = resolve("BASE_URL", "https://google.com");
     public static final String JWT_TOKEN = resolve("JWT_TOKEN", "");
 
     public static final Map<String, String> HEADERS = buildHeaders();

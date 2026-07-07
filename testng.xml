@@ -3,7 +3,7 @@
 <suite name="API Test Suite" verbose="1">
     <test name="Cucumber Tests">
         <classes>
-            <class name="com.example.runner.TestRunner"/>
+            <class name="one.two.three.runner.TestRunner"/>
         </classes>
     </test>
 </suite>

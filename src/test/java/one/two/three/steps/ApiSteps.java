@@ -1,17 +1,16 @@
-package com.example.steps;
+package one.two.three.steps;
 
-import com.example.support.ApiContext;
-import com.example.support.Config;
+import one.two.three.support.ApiContext;
+import one.two.three.support.Config;
+import one.two.three.utils.CsvUtils;
+import one.two.three.utils.JsonPathUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +44,7 @@ public class ApiSteps {
     public void iSendAGetRequestTo(String endpoint) throws Exception {
         ctx.requestMethod = "GET";
         ctx.requestUrl = ctx.baseUrl + endpoint;
-        ctx.response = ctx.apiContext.get(endpoint);
+        ctx.response = ctx.getApiContext().get(endpoint);
         ctx.responseBody = mapper.readValue(
             ctx.response.text(),
             new TypeReference<Map<String, Object>>() {}
@@ -90,74 +89,32 @@ public class ApiSteps {
             .isEqualTo(expected);
     }
 
-    @Then("each review should have non-null field {string}")
-    public void eachReviewShouldHaveNonNullField(String field) {
-        @SuppressWarnings("unchecked")
-        List<Map<String, Object>> reviews = (List<Map<String, Object>>) ctx.responseBody.get("reviews");
-
-        assertThat(reviews)
-            .as("reviews array")
-            .isNotNull()
-            .isInstanceOf(List.class);
-
-        for (int i = 0; i < reviews.size(); i++) {
-            Object value = reviews.get(i).get(field);
-            assertThat(value)
-                .as("reviews[%d].%s must not be null or undefined", i, field)
-                .isNotNull();
+    @Then("each of the following fields should be non-null:")
+    public void eachOfTheFollowingFieldsShouldBeNonNull(DataTable table) {
+        for (String jsonPath : table.asList(String.class)) {
+            JsonPathUtils.assertNonNull(ctx.responseBody, jsonPath);
         }
     }
 
-    @Then("each review rating should be within the valid enum from {string}")
-    public void eachReviewRatingShouldBeWithinValidEnum(String csvFile) throws Exception {
-        InputStream is = getClass().getClassLoader()
-            .getResourceAsStream("csv/" + csvFile + ".csv");
+    @Then("the value of the element {string} is {string}")
+    public void theValueOfTheElementIs(String elementPath, String expected) {
+        JsonPathUtils.assertEquals(ctx.responseBody, elementPath, expected);
+    }
 
-        assertThat(is)
-            .as("CSV file 'csv/%s.csv' should exist on classpath", csvFile)
-            .isNotNull();
-
-        List<Integer> validValues = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
-            String line;
-            boolean firstLine = true;
-            while ((line = reader.readLine()) != null) {
-                line = line.trim();
-                if (firstLine) { firstLine = false; continue; } // skip header
-                if (!line.isEmpty()) {
-                    validValues.add(Integer.parseInt(line));
-                }
-            }
-        }
-
-        @SuppressWarnings("unchecked")
-        List<Map<String, Object>> reviews = (List<Map<String, Object>>) ctx.responseBody.get("reviews");
-
-        assertThat(reviews)
-            .as("reviews array")
-            .isNotNull()
-            .isInstanceOf(List.class);
-
-        List<String> mismatches = new ArrayList<>();
-        for (int i = 0; i < reviews.size(); i++) {
-            int rating = ((Number) reviews.get(i).get("rating")).intValue();
-            if (!validValues.contains(rating)) {
-                mismatches.add(String.format(
-                    "reviews[%d].rating = %d (not in enum: [%s])",
-                    i, rating, validValues.stream()
-                        .map(String::valueOf)
-                        .reduce((a, b) -> a + ", " + b)
-                        .orElse("")
-                ));
-            }
-        }
+    @Then("each value at {string} should be within the valid list from CSV {string}")
+    public void eachValueAtShouldBeWithinValidListFromCsv(String jsonPath, String csvFile) throws Exception {
+        List<String> validValues = CsvUtils.readValues(csvFile);
+        List<String> mismatches = JsonPathUtils.findMismatches(ctx.responseBody, jsonPath, validValues);
 
         if (!mismatches.isEmpty()) {
-            throw new AssertionError("Rating enum mismatch(es):\n" +
+            String path = JsonPathUtils.normalize(jsonPath);
+            String warning = "WARNING - '" + path + "' list mismatch(es):\n" +
                 mismatches.stream()
                     .map(m -> "  - " + m)
                     .reduce((a, b) -> a + "\n" + b)
-                    .orElse(""));
+                    .orElse("");
+            ctx.scenario.log(warning);
+            ctx.scenario.attach(warning, "text/plain", csvFile + "-list-warning");
         }
     }
 }

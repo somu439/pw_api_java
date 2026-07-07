@@ -1,4 +1,4 @@
-package com.example.runner;
+package one.two.three.runner;
 
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
@@ -6,7 +6,7 @@ import org.testng.annotations.DataProvider;
 
 @CucumberOptions(
     features = "src/test/resources/features",
-    glue = {"com.example.steps", "com.example.hooks"},
+    glue = {"one.two.three.steps", "one.two.three.hooks"},
     plugin = {
         "pretty",
         "html:target/cucumber-reports/index.html",
