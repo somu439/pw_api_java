@@ -4,13 +4,14 @@ import one.two.three.support.ApiContext;
 import one.two.three.support.Config;
 import one.two.three.utils.CsvUtils;
 import one.two.three.utils.JsonPathUtils;
-import com.fasterxml.jackson.core.type.TypeReference;
+import one.two.three.utils.ResponseUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,10 +46,27 @@ public class ApiSteps {
         ctx.requestMethod = "GET";
         ctx.requestUrl = ctx.baseUrl + endpoint;
         ctx.response = ctx.getApiContext().get(endpoint);
-        ctx.responseBody = mapper.readValue(
-            ctx.response.text(),
-            new TypeReference<Map<String, Object>>() {}
-        );
+        ctx.responseBody = ResponseUtils.parseBody(mapper, ctx.response.text());
+        attachRequestAndResponse();
+    }
+
+    private void attachRequestAndResponse() throws Exception {
+        Map<String, Object> requestDetails = new LinkedHashMap<>();
+        requestDetails.put("method", ctx.requestMethod);
+        requestDetails.put("url", ctx.requestUrl);
+        requestDetails.put("headers", Config.HEADERS);
+        String requestJson = "REQUEST:\n" + mapper.writerWithDefaultPrettyPrinter()
+            .writeValueAsString(requestDetails);
+        ctx.scenario.attach(requestJson.getBytes(), "text/plain", "Request");
+
+        Map<String, Object> responseDetails = new LinkedHashMap<>();
+        responseDetails.put("status", ctx.response.status());
+        responseDetails.put("statusText", ctx.response.statusText());
+        responseDetails.put("headers", ctx.response.headers());
+        responseDetails.put("body", ctx.responseBody);
+        String responseJson = "RESPONSE:\n" + mapper.writerWithDefaultPrettyPrinter()
+            .writeValueAsString(responseDetails);
+        ctx.scenario.attach(responseJson.getBytes(), "text/plain", "Response");
     }
 
     @Then("the response status should be {int}")
