@@ -1,0 +1,5 @@
+baseurl,endpoint,httpStatusCode,jsonPath1,value1,jsonpath2,value2
+dummyjson.com,/products/1,200,body.dimensions.depth,22.99,body.tags[1],mascara1
+dummyjson.com,/products/1,200,body.dimensions.depth,23,body.tags[0],mascara2
+dummyjson.com,/products/1,200,body.sku,BEA-ESS-ESS-002,body.tags[1],mascara3
+dummyjson.com,/products/1,200,body.dimensions.depth,25.99,body.tags[0],mascara4

@@ -1,4 +1,4 @@
-@system @regression
+# @system @regression
 Feature: GET Product - DummyJSON API
   As a QA engineer
   I want to verify the GET product endpoint of dummyjson.com
