@@ -94,14 +94,12 @@ public class ApiSteps {
 
     @Then("the response should contain field {string}")
     public void theResponseShouldContainField(String field) {
-        assertThat(ctx.responseBody)
-            .as("Response body should contain field '%s'", field)
-            .containsKey(field);
+        JsonPathUtils.read(ctx.responseBody, field);
     }
 
     @Then("the response field {string} should equal {int}")
     public void theResponseFieldShouldEqual(String field, int expected) {
-        Object value = ctx.getField(field);
+        Object value = JsonPathUtils.read(ctx.responseBody, field);
         assertThat(((Number) value).intValue())
             .as("Response field '%s'", field)
             .isEqualTo(expected);

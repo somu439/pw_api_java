@@ -22,10 +22,6 @@ public class ApiContext {
     public String requestMethod = "";
     public Scenario scenario;
 
-    public Object getField(String field) {
-        return responseBody.get(field);
-    }
-
     // Created lazily so Given steps (which run after @Before) can still change baseUrl/jwtToken first.
     public APIRequestContext getApiContext() {
         if (apiContext == null) {
