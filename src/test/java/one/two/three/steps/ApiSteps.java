@@ -122,6 +122,18 @@ public class ApiSteps {
         JsonPathUtils.assertContains(ctx.responseBody, elementPath, expected);
     }
 
+    @Then("the value of the element {string} contains")
+    public void theValueOfTheElementContainsAll(String elementPath, DataTable table) {
+        List<String> expectedValues = table.asList(String.class);
+        JsonPathUtils.assertContainsAll(ctx.responseBody, elementPath, expectedValues);
+    }
+
+    @Then("the following fields should match for {string} and {string}")
+    public void theFollowingFieldsShouldMatchFor(String path1, String path2, DataTable table) {
+        List<List<String>> expectedPairs = table.asLists(String.class);
+        JsonPathUtils.assertParallelFieldsMatch(ctx.responseBody, path1, path2, expectedPairs);
+    }
+
     @Then("each value at {string} should be within the valid list from CSV {string}")
     public void eachValueAtShouldBeWithinValidListFromCsv(String jsonPath, String csvFile) throws Exception {
         List<String> validValues = CsvUtils.readValues(csvFile);

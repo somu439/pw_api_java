@@ -74,6 +74,92 @@ public class JsonPathUtils {
         }
     }
 
+    // Like assertContains, but checks that every value in expectedValues is present
+    // (in any order) rather than just one — for asserting a whole set of array elements at once.
+    public static void assertContainsAll(Object json, String rawPath, List<String> expectedValues) {
+        String path = normalize(rawPath);
+        Object result = read(json, rawPath);
+        List<?> values = result instanceof List<?> list ? list : List.of(result);
+
+        List<String> missing = new ArrayList<>();
+        for (String expected : expectedValues) {
+            boolean found = values.stream().anyMatch(v -> String.valueOf(v).equals(expected));
+            if (!found) {
+                missing.add(expected);
+            }
+        }
+
+        if (!missing.isEmpty()) {
+            throw new AssertionError(
+                "Missing expected value(s) at '" + path + "' (actual: " + values + "):\n"
+                    + missing.stream().map(m -> "  - '" + m + "'").reduce((a, b) -> a + "\n" + b).orElse("")
+            );
+        }
+    }
+
+    // Correlates two parallel array projections from the same underlying array (e.g.
+    // "reviews[*].comment" and "reviews[*].reviewerName" — JsonPath wildcard projections
+    // preserve array order, so index i in one list corresponds to index i in the other).
+    // For each (value1, value2) row, finds the index where path1's value equals value1
+    // and asserts path2's value at that same index equals value2. Generic across any two
+    // fields/paths and any number of expected pairs.
+    public static void assertParallelFieldsMatch(Object json, String path1, String path2,
+                                                  List<List<String>> expectedPairs) {
+        String p1 = normalize(path1);
+        String p2 = normalize(path2);
+
+        Object result1 = read(json, path1);
+        Object result2 = read(json, path2);
+        List<?> values1 = result1 instanceof List<?> list ? list : List.of(result1);
+        List<?> values2 = result2 instanceof List<?> list ? list : List.of(result2);
+
+        assertThat(values1.size())
+            .as("'%s' and '%s' should project the same number of elements", p1, p2)
+            .isEqualTo(values2.size());
+
+        List<String> mismatches = new ArrayList<>();
+        for (List<String> pair : expectedPairs) {
+            String expected1 = pair.get(0);
+            String expected2 = pair.get(1);
+
+            int index = -1;
+            for (int i = 0; i < values1.size(); i++) {
+                if (String.valueOf(values1.get(i)).equals(expected1)) {
+                    index = i;
+                    break;
+                }
+            }
+
+            if (index == -1) {
+                mismatches.add(String.format(
+                    "no element found where %s = '%s'", p1, expected1
+                ));
+                continue;
+            }
+
+            String actual2 = String.valueOf(values2.get(index));
+            if (!actual2.equals(expected2)) {
+                mismatches.add(String.format(
+                    "at index %d — %s = '%s', expected %s = '%s' but was '%s'",
+                    index, indexedLocation(p1, index), expected1, indexedLocation(p2, index), expected2, actual2
+                ));
+            }
+        }
+
+        if (!mismatches.isEmpty()) {
+            throw new AssertionError(
+                "Correlated field mismatch(es) between '" + p1 + "' and '" + p2 + "':\n"
+                    + mismatches.stream().map(m -> "  - " + m).reduce((a, b) -> a + "\n" + b).orElse("")
+            );
+        }
+    }
+
+    // Resolves the "[*]" wildcard in a path to the concrete index that produced a mismatch,
+    // e.g. "$.reviews[*].comment" + 2 -> "$.reviews[2].comment", so the error points at one element.
+    private static String indexedLocation(String normalizedPath, int index) {
+        return normalizedPath.replace("[*]", "[" + index + "]");
+    }
+
     public static List<String> findMismatches(Object json, String rawPath, List<String> validValues) {
         String path = normalize(rawPath);
         Object result = read(json, rawPath);

@@ -23,5 +23,10 @@ Feature: GET Product - DummyJSON API for node
     And each value at "myresponse[0].body.reviews[*].comment" should be within the valid list from CSV "comment"
     And the value of the element "myresponse[0].body.dimensions.depth" is "22.99"
     And the value of the element "myresponse[0].body.tags[1]" is "mascara"
-    And the value of the element "myresponse[0].body.tags[*]" contains "beauty"
+    And the value of the element "myresponse[0].body.tags[*]" contains
+      |beauty|
+      |mascara1|
     And the value of the element "myresponse[0].body.sku" is "BEA-ESS-ESS-001"
+    And the following fields should match for "myresponse[0].body.reviews[*].comment" and "myresponse[0].body.reviews[*].reviewerName"
+      |Highly impressed!|Eleanor Collins1|
+      |Very satisfied!|Lucas Gordon|
