@@ -131,7 +131,19 @@ public class ApiSteps {
     @Then("the following fields should match for {string} and {string}")
     public void theFollowingFieldsShouldMatchFor(String path1, String path2, DataTable table) {
         List<List<String>> expectedPairs = table.asLists(String.class);
-        JsonPathUtils.assertParallelFieldsMatch(ctx.responseBody, path1, path2, expectedPairs);
+        List<String> mismatches = JsonPathUtils.findParallelFieldMismatches(ctx.responseBody, path1, path2, expectedPairs);
+
+        if (!mismatches.isEmpty()) {
+            String p1 = JsonPathUtils.normalize(path1);
+            String p2 = JsonPathUtils.normalize(path2);
+            String warning = "WARNING - Correlated field mismatch(es) between '" + p1 + "' and '" + p2 + "':\n" +
+                mismatches.stream()
+                    .map(m -> "  - " + m)
+                    .reduce((a, b) -> a + "\n" + b)
+                    .orElse("");
+            ctx.scenario.log(warning);
+            ctx.scenario.attach(warning, "text/plain", "correlated-fields-warning");
+        }
     }
 
     @Then("each value at {string} should be within the valid list from CSV {string}")

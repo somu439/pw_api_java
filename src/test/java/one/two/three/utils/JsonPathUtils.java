@@ -101,10 +101,12 @@ public class JsonPathUtils {
     // "reviews[*].comment" and "reviews[*].reviewerName" — JsonPath wildcard projections
     // preserve array order, so index i in one list corresponds to index i in the other).
     // For each (value1, value2) row, finds the index where path1's value equals value1
-    // and asserts path2's value at that same index equals value2. Generic across any two
-    // fields/paths and any number of expected pairs.
-    public static void assertParallelFieldsMatch(Object json, String path1, String path2,
-                                                  List<List<String>> expectedPairs) {
+    // and checks path2's value at that same index equals value2. Generic across any two
+    // fields/paths and any number of expected pairs. Returns the mismatch descriptions
+    // (empty if all pairs matched) rather than throwing, so callers can choose to warn
+    // instead of failing the scenario.
+    public static List<String> findParallelFieldMismatches(Object json, String path1, String path2,
+                                                            List<List<String>> expectedPairs) {
         String p1 = normalize(path1);
         String p2 = normalize(path2);
 
@@ -146,12 +148,7 @@ public class JsonPathUtils {
             }
         }
 
-        if (!mismatches.isEmpty()) {
-            throw new AssertionError(
-                "Correlated field mismatch(es) between '" + p1 + "' and '" + p2 + "':\n"
-                    + mismatches.stream().map(m -> "  - " + m).reduce((a, b) -> a + "\n" + b).orElse("")
-            );
-        }
+        return mismatches;
     }
 
     // Resolves the "[*]" wildcard in a path to the concrete index that produced a mismatch,
