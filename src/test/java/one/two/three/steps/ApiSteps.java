@@ -146,6 +146,11 @@ public class ApiSteps {
         }
     }
 
+    @Then("each value at {string} should contain valid date format {string}")
+    public void eachValueAtShouldContainValidDateFormat(String jsonPath, String format) {
+        JsonPathUtils.assertValidDateFormat(ctx.responseBody, jsonPath, format);
+    }
+
     @Then("each value at {string} should be within the valid list from CSV {string}")
     public void eachValueAtShouldBeWithinValidListFromCsv(String jsonPath, String csvFile) throws Exception {
         List<String> validValues = CsvUtils.readValues(csvFile);

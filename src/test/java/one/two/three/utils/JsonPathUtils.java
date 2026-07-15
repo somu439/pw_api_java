@@ -4,11 +4,25 @@ import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class JsonPathUtils {
+
+    // Ordered longest-token-first so e.g. "YYYY" is matched before a stray "Y" would be.
+    private static final Map<String, String> DATE_FORMAT_TOKENS = new LinkedHashMap<>();
+    static {
+        DATE_FORMAT_TOKENS.put("YYYY", "\\d{4}");
+        DATE_FORMAT_TOKENS.put("MM", "\\d{2}");
+        DATE_FORMAT_TOKENS.put("DD", "\\d{2}");
+        DATE_FORMAT_TOKENS.put("HH", "\\d{2}");
+        DATE_FORMAT_TOKENS.put("mm", "\\d{2}");
+        DATE_FORMAT_TOKENS.put("ss", "\\d{2}");
+    }
 
     private JsonPathUtils() {
     }
@@ -72,6 +86,58 @@ public class JsonPathUtils {
                 .as("Value at '%s'", rawPath)
                 .contains(expected);
         }
+    }
+
+    // Checks each value at rawPath contains a substring matching the given human-friendly date
+    // format (e.g. "YYYY-MM-DD", optionally "HH:mm:ss" too) — a "contains" check rather than a
+    // full match, so it also passes for fuller timestamps like "2025-04-30T09:41:02.053Z". Null
+    // values are skipped rather than treated as failures.
+    public static void assertValidDateFormat(Object json, String rawPath, String format) {
+        String path = normalize(rawPath);
+        Object result = read(json, rawPath);
+        List<?> values = result instanceof List<?> list ? list : List.of(result);
+        Pattern pattern = buildDatePattern(format);
+
+        List<String> mismatches = new ArrayList<>();
+        for (int i = 0; i < values.size(); i++) {
+            Object value = values.get(i);
+            if (value == null) {
+                continue;
+            }
+            String actual = String.valueOf(value);
+            if (!pattern.matcher(actual).find()) {
+                mismatches.add(String.format(
+                    "%s — expected format: '%s', actual value: '%s'",
+                    indexedLocation(path, i), format, actual
+                ));
+            }
+        }
+
+        if (!mismatches.isEmpty()) {
+            throw new AssertionError(
+                "Invalid date format at '" + path + "':\n"
+                    + mismatches.stream().map(m -> "  - " + m).reduce((a, b) -> a + "\n" + b).orElse("")
+            );
+        }
+    }
+
+    private static Pattern buildDatePattern(String format) {
+        StringBuilder regex = new StringBuilder();
+        int i = 0;
+        outer:
+        while (i < format.length()) {
+            for (Map.Entry<String, String> token : DATE_FORMAT_TOKENS.entrySet()) {
+                String key = token.getKey();
+                if (format.startsWith(key, i)) {
+                    regex.append(token.getValue());
+                    i += key.length();
+                    continue outer;
+                }
+            }
+            regex.append(Pattern.quote(String.valueOf(format.charAt(i))));
+            i++;
+        }
+        return Pattern.compile(regex.toString());
     }
 
     // Like assertContains, but checks that every value in expectedValues is present

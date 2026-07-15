@@ -25,8 +25,10 @@ Feature: GET Product - DummyJSON API for node
     And the value of the element "myresponse[0].body.tags[1]" is "mascara"
     And the value of the element "myresponse[0].body.tags[*]" contains
       |beauty|
-      |mascara1|
+      |mascara|
     And the value of the element "myresponse[0].body.sku" is "BEA-ESS-ESS-001"
     And the following fields should match for "myresponse[0].body.reviews[*].comment" and "myresponse[0].body.reviews[*].reviewerName"
-      |Highly impressed!|Eleanor Collins1|
+      |Highly impressed!|Eleanor Collins|
       |Very satisfied!|Lucas Gordon|
+    And each value at "myresponse[0].body.reviews[*].date" should contain valid date format "YYYY-MM-DD"
+    
