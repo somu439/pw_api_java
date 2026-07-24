@@ -6,4 +6,9 @@
             <class name="one.two.three.runner.TestRunner"/>
         </classes>
     </test>
+    <test name="Cucumber UI Tests">
+        <classes>
+            <class name="one.two.three.runner.UiTestRunner"/>
+        </classes>
+    </test>
 </suite>

@@ -30,5 +30,5 @@ Feature: GET Product - DummyJSON API for node
     And the following fields should match for "myresponse[0].body.reviews[*].comment" and "myresponse[0].body.reviews[*].reviewerName"
       |Highly impressed!|Eleanor Collins|
       |Very satisfied!|Lucas Gordon|
-    And each value at "myresponse[0].body.reviews[*].date" should contain valid date format "YYYY-MM-DD"
+    And each value at "myresponse[0].body.reviews[*].date" should contain valid date format "MM-DD-YYYY"
     

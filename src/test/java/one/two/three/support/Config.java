@@ -12,6 +12,11 @@ public class Config {
     public static final String BASE_URL = resolve("BASE_URL", "https://google.com");
     public static final String JWT_TOKEN = resolve("JWT_TOKEN", "");
 
+    public static final String PARABANK_BASE_URL = resolve("PARABANK_BASE_URL", "https://parabank.parasoft.com/parabank");
+    public static final String PARABANK_USERNAME = resolve("PARABANK_USERNAME", "");
+    public static final String PARABANK_PASSWORD = resolve("PARABANK_PASSWORD", "");
+    public static final boolean HEADLESS = Boolean.parseBoolean(resolve("HEADLESS", "false"));
+
     public static final Map<String, String> HEADERS = buildHeaders();
 
     private static Properties loadProperties() {
